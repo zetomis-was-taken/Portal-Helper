@@ -1,6 +1,43 @@
 import { colors } from "@/theme/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
+import React from "react";
+
+type IconName = React.ComponentProps<typeof Ionicons>["name"];
+
+interface TabConfig {
+  name: string;
+  title: string;
+  activeIcon: IconName;
+  inactiveIcon: IconName;
+}
+
+const TAB_SCREENS: TabConfig[] = [
+  {
+    name: "index",
+    title: "Dashboard",
+    activeIcon: "analytics",
+    inactiveIcon: "analytics-outline",
+  },
+  {
+    name: "(calculator)/calculator",
+    title: "Calculator",
+    activeIcon: "calculator",
+    inactiveIcon: "calculator-outline",
+  },
+  {
+    name: "(scheduler)/scheduler",
+    title: "Scheduler",
+    activeIcon: "calendar",
+    inactiveIcon: "calendar-outline",
+  },
+  {
+    name: "(settings)/settings",
+    title: "Settings",
+    activeIcon: "settings",
+    inactiveIcon: "settings-outline",
+  },
+];
 
 export const RootLayout = () => {
   return (
@@ -23,45 +60,22 @@ export const RootLayout = () => {
         tabBarShowLabel: true,
       }}
     >
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: "Dashboard",
-          tabBarIcon: ({ color, focused }) => (
-            <Ionicons
-              name={focused ? "analytics" : "analytics-outline"}
-              size={24}
-              color={color}
-            />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="(calculator)/calculator"
-        options={{
-          title: "Calculator",
-          tabBarIcon: ({ color, focused }) => (
-            <Ionicons
-              name={focused ? "calculator" : "calculator-outline"}
-              size={24}
-              color={color}
-            />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="(scheduler)/scheduler"
-        options={{
-          title: "Scheduler",
-          tabBarIcon: ({ color, focused }) => (
-            <Ionicons
-              name={focused ? "calendar" : "calendar-outline"}
-              size={24}
-              color={color}
-            />
-          ),
-        }}
-      />
+      {TAB_SCREENS.map((tab) => (
+        <Tabs.Screen
+          key={tab.name}
+          name={tab.name}
+          options={{
+            title: tab.title,
+            tabBarIcon: ({ color, focused }) => (
+              <Ionicons
+                name={focused ? tab.activeIcon : tab.inactiveIcon}
+                size={24}
+                color={color}
+              />
+            ),
+          }}
+        />
+      ))}
     </Tabs>
   );
 };

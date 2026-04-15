@@ -1,22 +1,17 @@
-import { colors } from "@/theme/colors";
-import { Ionicons } from "@expo/vector-icons";
-import { Text, View } from "react-native";
+import DashboardContent from "@/components/dashboard/DashboardContent";
+import DashboardHeader from "@/components/dashboard/DashboardHeader";
+import DashboardNote from "@/components/dashboard/DashboardNote";
+import React from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function Index() {
+const Index = () => {
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
-      <Ionicons
-        name={true ? "analytics" : "analytics-outline"}
-        size={24}
-        color={colors.primary}
-      />
-    </View>
+    <SafeAreaView>
+      <DashboardHeader />
+      <DashboardContent />
+      <DashboardNote />
+    </SafeAreaView>
   );
-}
+};
+
+export default Index;
